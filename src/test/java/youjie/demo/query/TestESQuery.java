@@ -1,6 +1,8 @@
 package youjie.demo.query;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -58,9 +60,13 @@ public class TestESQuery {
         searchRequest
                 .from(currentPageIndex.intValue())
                 .size(size.intValue());
+        BoolQuery.Builder builder = new BoolQuery.Builder();
         for (Field<?> field : fields) {
             String name = field.getName();
+            builder.must(t -> t.term(te -> te.field(name).value(1L)));
         }
+        searchRequest.query(q -> q.bool(builder.build()));
+        System.out.println(JSON.toJSONString(searchRequest.build()));
     }
 
     private ESDataSource parseDataSource(JSONObject jsonObject) {
@@ -74,9 +80,10 @@ public class TestESQuery {
     private ICondition parseCondition(Map condition) {
         String pageName = (String) condition.get("pageName");
         String sizeName = (String) condition.get("sizeName");
-        JSONArray filter = (JSONArray) condition.get("filter");
+        JSONObject filter = (JSONObject) condition.get("filter");
+        JSONArray and = (JSONArray) filter.get("and");
         List<IOperation> operations = new ArrayList<>();
-        for (Object o : filter) {
+        for (Object o : and) {
             JSONObject jo = (JSONObject) o;
             IOperation op = parseOp(jo);
             operations.add(op);

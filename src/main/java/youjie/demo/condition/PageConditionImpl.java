@@ -24,12 +24,12 @@ public class PageConditionImpl extends ConditionBase {
     }
 
     public Long getCurrentPageIndex(){
-        Long page = Long.valueOf(pageName.substring(pageName.indexOf(":")));
-        Long size = Long.valueOf(sizeName.substring(sizeName.indexOf(":")));
+        Long page = Long.valueOf(pageName.substring(pageName.indexOf(":")+1));
+        Long size = Long.valueOf(sizeName.substring(sizeName.indexOf(":")+1));
         return (page - 1) * size;
     }
 
     public Long getSize(){
-        return Long.valueOf(sizeName.substring(sizeName.indexOf(":")));
+        return Long.valueOf(sizeName.substring(sizeName.indexOf(":")+1));
     }
 }
