@@ -8,11 +8,5 @@ import lombok.Getter;
  *
  * @author fuyouj
  */
-@Getter
 public abstract class GenericJavaType<T> implements JavaType<T> {
-    private final String name;
-
-    public GenericJavaType(String name) {
-        this.name = name;
-    }
 }

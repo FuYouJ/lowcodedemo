@@ -1,6 +1,9 @@
 package youjie.demo.filter;
 
 import lombok.Getter;
+import youjie.demo.filter.operation.IOperation;
+
+import java.util.List;
 
 /**
  * {@code Author} FuYouJ
@@ -11,7 +14,10 @@ import lombok.Getter;
 public abstract class FilterBase implements Filter {
     private final FilterType filterType;
 
-    public FilterBase(FilterType filterType) {
+    private final List<IOperation> operations;
+
+    public FilterBase(FilterType filterType, List<IOperation> operations) {
         this.filterType = filterType;
+        this.operations = operations;
     }
 }

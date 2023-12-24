@@ -1,7 +1,7 @@
 package youjie.demo.source;
 
 import lombok.Getter;
-import youjie.demo.filter.Filter;
+import youjie.demo.condition.ICondition;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import java.util.List;
  * {@code Date} 2023/12/21 22:44
  */
 @Getter
-public class DataSourceBase implements ISource {
-    private  List<Field<?>> fields;
-    private  Filter filter;
+public class ESDataSource implements ISource {
+
+    private String index;
+    private List<Field<?>> fields;
     private final SourceType sourceType = SourceType.ES7;
 
-    public DataSourceBase(List<Field<?>> fields, Filter filter) {
+    public ESDataSource(String index, List<Field<?>> fields) {
         this.fields = fields;
-        this.filter = filter;
     }
 }

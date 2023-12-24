@@ -1,5 +1,6 @@
 package youjie.demo.source;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import youjie.demo.type.JavaType;
@@ -11,6 +12,7 @@ import youjie.demo.type.JavaType;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class Field<T> {
     private String name;
 

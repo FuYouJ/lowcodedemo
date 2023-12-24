@@ -15,29 +15,23 @@
       },
       {
         "name": "role",
-        "javaType": "string"
+        "javaType": "List<string>"
       }
     ]
   },
-  "condition": [
-    {
-      "conditionType": "page",
-      "pageName": "currenPage:1",
-      "sizeName": "pageSize:50",
-      "filter": {
-        "and": [
-          {
-            "type": "eq",
-            "optional": "true",
-            "name": "role:[被告,原告]",
-            "javaType": "List<String>"
-          },
-          {
-            "type": "range",
-             "name": "gdLocation:[1,2]"
-          }
-        ]
-      }
+  "condition": {
+    "conditionType": "page",
+    "pageName": "currenPage:1",
+    "sizeName": "pageSize:50",
+    "filter": {
+      "and": [
+        {
+          "type": "eq",
+          "optional": "true",
+          "name": "role:[被告,原告]",
+          "javaType": "List<String>"
+        }
+      ]
     }
-  ]
+  }
 }

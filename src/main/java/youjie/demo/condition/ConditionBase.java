@@ -1,6 +1,7 @@
 package youjie.demo.condition;
 
 import lombok.Getter;
+import youjie.demo.filter.Filter;
 
 /**
  * {@code Author} FuYouJ
@@ -10,7 +11,10 @@ import lombok.Getter;
 public class ConditionBase implements ICondition {
     private final ConditionType conditionType;
 
-    public ConditionBase(ConditionType conditionType) {
+    private final Filter filter;
+
+    public ConditionBase(ConditionType conditionType, Filter filter) {
         this.conditionType = conditionType;
+        this.filter = filter;
     }
 }

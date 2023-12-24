@@ -9,9 +9,9 @@ import java.util.List;
  */
 
 public class ListType extends GenericJavaType<List>{
-    private DataType dataType;
-    public ListType(String name) {
-        super(name);
+    private final DataType dataType;
+    public ListType(DataType dataType) {
+        this.dataType = dataType;
     }
 
     @Override
