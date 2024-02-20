@@ -1,0 +1,41 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "optional": "true",
+                "match": {
+                  "${title}": "${titleVal}"
+                }
+              },
+              {
+                "optional": "true",
+                "match": {
+                  "${content}": "${contentVal}"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "optional": "true",
+          "term": {
+            "${status}": "${statusVal}"
+          }
+        },
+        {
+          "optional": "true",
+          "range": {
+            "${publish_date}": {
+              "gte": "${from}",
+              "lte": "${to}"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
