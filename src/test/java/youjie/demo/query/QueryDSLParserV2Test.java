@@ -14,6 +14,14 @@ import java.util.Map;
  */
 
 public class QueryDSLParserV2Test {
+    @Test
+    public void testSimple() {
+        String json = JsonUtil.getJsonByPath("src/test/resources/test1.json");
+        Map queryDSL = JSONObject.parseObject(json, Map.class);
+        Map map = QueryDSLParserV2.parseConfigQuery(queryDSL);
+        System.out.println(JSONObject.toJSONString(map));
+        Assertions.assertEquals(map.size(),0);
+    }
 
     @Test
     public void test1SubArrayQuery() {
