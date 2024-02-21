@@ -1,0 +1,4 @@
+{
+  "name": "nameVal",
+  "${name}": "${nameVal}"
+}

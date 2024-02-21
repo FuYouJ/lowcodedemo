@@ -1,0 +1,10 @@
+{
+  "query": [
+    {
+      "${name}": "${nameVar}"
+    },
+    {
+      "${name2}": "${nameVar2}"
+    }
+  ]
+}

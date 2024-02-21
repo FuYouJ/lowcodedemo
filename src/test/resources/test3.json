@@ -12,7 +12,8 @@
               },
               {
                 "match": {
-                  "${content}": "${contentVal}"
+                  "${content}": "${contentVal}",
+                  "boost": "1"
                 }
               }
             ]

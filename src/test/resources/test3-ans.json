@@ -1,0 +1,34 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "title": "标题"
+                }
+              }
+            ]
+          }
+        },
+        {
+
+          "term": {
+            "status": "状态"
+          }
+        },
+        {
+
+          "range": {
+            "publish_date": {
+              "gte": "2022",
+              "lte": "2023"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
