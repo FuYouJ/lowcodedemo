@@ -1,0 +1,14 @@
+{
+  "query": {
+    "must": [
+      {
+        "term": {
+          "name": "John"
+        },
+        "term": {
+          "${age}": "${ageVal}",
+        }
+      }
+    ]
+  }
+}

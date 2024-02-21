@@ -6,13 +6,11 @@
           "bool": {
             "should": [
               {
-                "optional": "true",
                 "match": {
                   "title": "标题"
                 }
               },
               {
-                "optional": "true",
                 "match": {
                   "${content}": "${contentVal}"
                 }
@@ -21,13 +19,13 @@
           }
         },
         {
-          "optional": "true",
+
           "term": {
             "status": "状态"
           }
         },
         {
-          "optional": "true",
+
           "range": {
             "publish_date": {
               "gte": "2022",

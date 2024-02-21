@@ -11,26 +11,28 @@ public class QueryDSLParser {
     public static Map<String, Object> parseConfigDSL(Map<String, Object> queryDSL){
         return parseConfigDSL(queryDSL,new HashMap<>());
     }
-    public static Map<String, Object> parseConfigDSL(Map<String, Object> queryDSL,Map<String,Object> params) {
+    public static Map<String, Object> parseConfigDSL(Map<String, Object> queryDSL, Map<String, Object> params) {
         Map<String, Object> remainMap = new HashMap<>();
-        //todo 对key的处理
         for (Map.Entry<String, Object> entry : queryDSL.entrySet()) {
             String originKey = entry.getKey();
             String key = originKey;
-            if (originKey.startsWith("${") && originKey.endsWith("}")){
-                String extractVariable = extractVariable(originKey);
-                if (params.containsKey(extractVariable)){
+            Object value = entry.getValue();
+
+            // 检查 key 是否包含变量
+            if (key.contains("${")) {
+                String extractVariable = extractVariable(key);
+                if (params.containsKey(extractVariable)) {
                     key = (String) params.get(extractVariable);
-                }else {
+                } else {
+                    // 如果变量未被替换，则跳过整个查询
                     continue;
                 }
             }
 
-            Object value = entry.getValue();
             if (value instanceof Map) {
                 Map<String, Object> subMap = (Map<String, Object>) value;
-                Map<String, Object> parsedSubMap = parseConfigDSL(subMap);
-                //为true时才跳过，否则报错
+                Map<String, Object> parsedSubMap = parseConfigDSL(subMap, params);
+                // 为 true 时才跳过，否则报错
                 if (parsedSubMap.size() == 1 && parsedSubMap.containsKey("optional")) {
                     continue;
                 }
@@ -61,7 +63,7 @@ public class QueryDSLParser {
                                 parsedSubList.add(strValue);
                             }
                         } else if (subItem instanceof Map) {
-                            Map<String, Object> parsedSubMap = parseConfigDSL((Map<String, Object>) subItem);
+                            Map<String, Object> parsedSubMap = parseConfigDSL((Map<String, Object>) subItem, params);
                             if (!parsedSubMap.isEmpty()) {
                                 parsedSubList.add(parsedSubMap);
                             }
@@ -74,13 +76,14 @@ public class QueryDSLParser {
             } else if (value instanceof String) {
                 String strValue = (String) value;
                 if (strValue.contains("${")) {
-                    // Assuming variables are surrounded by "${" and "}"
+                    // 检查变量是否被替换
                     String extractVariable = extractVariable(strValue);
-                    if (params.containsKey(extractVariable)){
+                    if (params.containsKey(extractVariable)) {
                         remainMap.put(key, params.get(extractVariable));
+                    } else {
+                        // 如果变量未被替换，则跳过整个查询
+                        continue;
                     }
-                } else {
-                    remainMap.put(key, value);
                 }
             } else {
                 remainMap.put(key, value);
@@ -97,7 +100,10 @@ public class QueryDSLParser {
                 return str.substring(startIndex + 2, endIndex);
             }
         }
-        return ""; // 如果没有找到变量，则返回 null
+        return ""; // 如果没有找到变量，则返回空字符串
     }
+
+
+
 
 }
